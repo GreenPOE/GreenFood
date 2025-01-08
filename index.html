@@ -5,11 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Food Menu with Features</title>
   <style>
-    body {
+    /* เพิ่มการแสดงผลเต็มหน้าจอ */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden; /* ป้องกันการเลื่อนหน้าจอ */
       font-family: Arial, sans-serif;
       text-align: center;
-      padding: 50px;
     }
+
+    body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      margin-top: 50px;
+    }
+
     button {
       padding: 10px 20px;
       font-size: 16px;
@@ -17,20 +35,52 @@
       color: white;
       border: none;
       cursor: pointer;
+      margin-top: 20px;
     }
+
     button:hover {
       background-color: #45a049;
     }
+
     #menu {
       font-size: 24px;
       margin-top: 20px;
       font-weight: bold;
     }
+
     #calories {
       margin-top: 20px;
     }
+
     #menuList {
       margin-top: 20px;
+    }
+
+    /* Style สำหรับส่วนการป้อนข้อมูลความคิดเห็น */
+    #feedback {
+      margin-top: 30px;
+    }
+
+    /* ทำให้ตัว textarea ขยายขนาดได้ */
+    textarea {
+      width: 100%;
+      max-width: 500px;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    /* Responsive: การปรับให้เข้ากับมือถือ */
+    @media (max-width: 600px) {
+      button {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+      }
+
+      textarea {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
@@ -49,7 +99,7 @@
   <!-- Feedback Section -->
   <div id="feedback">
     <h3>Give Your Feedback</h3>
-    <textarea id="userFeedback" placeholder="Enter your feedback here..." rows="4" cols="50"></textarea><br><br>
+    <textarea id="userFeedback" placeholder="Enter your feedback here..." rows="4"></textarea><br><br>
     <button onclick="submitFeedback()">Submit Feedback</button>
   </div>
 
