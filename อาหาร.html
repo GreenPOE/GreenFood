@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Menu with Features</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #menu {
+      font-size: 24px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    #calories {
+      margin-top: 20px;
+    }
+    #menuList {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Food Menu with Extra Features</h1>
+  <button onclick="generateMenu()">Generate Menu</button>
+  <div id="menu"></div>
+
+  <!-- Calories Info -->
+  <div id="calories"></div>
+
+  <!-- Add to Favorites Button -->
+  <button id="addFavoriteButton" style="display: none;" onclick="addToFavorites()">Add to Favorites</button>
+
+  <!-- Feedback Section -->
+  <div id="feedback">
+    <h3>Give Your Feedback</h3>
+    <textarea id="userFeedback" placeholder="Enter your feedback here..." rows="4" cols="50"></textarea><br><br>
+    <button onclick="submitFeedback()">Submit Feedback</button>
+  </div>
+
+  <!-- Favorite Menu Section -->
+  <button onclick="viewFavorites()">View My Favorite Menus</button>
+  <div id="menuList"></div>
+
+  <script>
+    // Menu Data (including calories info)
+    const menus = [
+      { name: "Pad Thai", calories: 400 },
+      { name: "Tom Yum Soup", calories: 150 },
+      { name: "Som Tum", calories: 180 },
+      { name: "Massaman Curry", calories: 450 },
+      { name: "Khao Pad", calories: 500 },
+      { name: "Moo Ping", calories: 350 },
+      { name: "Pad See Ew", calories: 400 },
+      { name: "Khao Soi", calories: 450 },
+      { name: "Gaeng Keow Wan", calories: 420 }
+    ];
+
+    let selectedMenu = "";
+    let favoriteMenus = JSON.parse(localStorage.getItem('favoriteMenus')) || [];
+
+    // Generate random menu and display calories
+    function generateMenu() {
+      const randomIndex = Math.floor(Math.random() * menus.length);
+      selectedMenu = menus[randomIndex];
+      document.getElementById("menu").innerText = `Today's Menu: ${selectedMenu.name}`;
+      document.getElementById("calories").innerText = `Calories: ${selectedMenu.calories} kcal`;
+
+      // Show the "Add to Favorites" button after generating a menu
+      document.getElementById("addFavoriteButton").style.display = 'inline-block';
+    }
+
+    // Save the selected menu to favorites
+    function addToFavorites() {
+      if (!favoriteMenus.includes(selectedMenu.name)) {
+        favoriteMenus.push(selectedMenu.name);
+        localStorage.setItem('favoriteMenus', JSON.stringify(favoriteMenus));
+        alert(`${selectedMenu.name} has been added to your favorites!`);
+      } else {
+        alert("This menu is already in your favorites.");
+      }
+    }
+
+    // View all favorite menus
+    function viewFavorites() {
+      const menuList = document.getElementById("menuList");
+      if (favoriteMenus.length > 0) {
+        menuList.innerHTML = favoriteMenus.join('<br>');
+      } else {
+        menuList.innerHTML = "You have no favorite menus.";
+      }
+    }
+
+    // Submit user feedback and save to localStorage (feedback will not be shown on the page)
+    function submitFeedback() {
+      const feedback = document.getElementById("userFeedback").value;
+      if (feedback.trim()) {
+        // Save feedback to localStorage without displaying it on the page
+        let feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
+        feedbacks.push(feedback);
+        localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+        
+        document.getElementById("userFeedback").value = ""; // Clear feedback box
+        alert(`Thank you for your feedback!`);
+      } else {
+        alert("Please enter some feedback before submitting.");
+      }
+    }
+
+  </script>
+
+</body>
+</html>
