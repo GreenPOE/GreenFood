@@ -11,7 +11,7 @@
       padding: 0;
       height: 100%;
       width: 100%;
-      overflow: hidden; /* ป้องกันการเลื่อนหน้าจอ */
+      overflow-y: auto; /* ให้สามารถเลื่อนแนวตั้งได้ */
       font-family: Arial, sans-serif;
       text-align: center;
     }
@@ -20,7 +20,7 @@
       padding: 20px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
     }
 
@@ -107,6 +107,9 @@
   <button onclick="viewFavorites()">View My Favorite Menus</button>
   <div id="menuList"></div>
 
+  <!-- Reset Favorites Button -->
+  <button onclick="resetFavorites()">Reset Favorites</button>
+
   <script>
     // Menu Data (including calories info)
     const menus = [
@@ -172,6 +175,13 @@
       }
     }
 
+    // Reset all favorite menus
+    function resetFavorites() {
+      localStorage.removeItem('favoriteMenus');
+      favoriteMenus = [];
+      document.getElementById("menuList").innerHTML = "Your favorite menus have been reset.";
+      alert("Your favorite menus have been cleared.");
+    }
   </script>
 
 </body>
